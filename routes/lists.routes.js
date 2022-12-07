@@ -20,7 +20,7 @@ router.get("/getOneList/:list_id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post("/createList", isAuthenticated, (req, res) => {
+router.post("/createList", isAuthenticated, (req, res, next) => {
 
     const { imageUrl, title, type, description, public, task1, task2, task3 } = req.body
 
@@ -31,7 +31,7 @@ router.post("/createList", isAuthenticated, (req, res) => {
     List
         .create({ imageUrl, title, type, description, public, tasks, owner })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
 })
 
 router.put("/updateList/:list_id", (req, res) => {
