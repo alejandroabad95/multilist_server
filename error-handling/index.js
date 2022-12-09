@@ -16,6 +16,7 @@ module.exports = (app) => {
       res.status(400).json({ errorMessages })
     }
 
+    console.log(err)
 
     // only render if the error ocurred before sending the response
     if (!res.headersSent) {

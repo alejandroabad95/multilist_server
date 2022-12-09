@@ -2,6 +2,7 @@ const router = require("express").Router()
 const { isAuthenticated } = require("../middleware/jwt.middleware")
 const List = require('./../models/List.model')
 
+
 router.get("/getAllLists", (req, res) => {
 
     List
@@ -26,7 +27,7 @@ router.post("/createList", isAuthenticated, (req, res, next) => {
 
     let tasks = [task1, task2, task3]
 
-    let owner = req.payload._id
+    let { _id: owner } = req.payload
 
     List
         .create({ imageUrl, title, type, description, public, tasks, owner })
