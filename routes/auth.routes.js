@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 
 const { isAuthenticated } = require('./../middleware/jwt.middleware')
 
+
 router.post('/signup', (req, res, next) => {
 
     const { email, password, username } = req.body
@@ -42,6 +43,19 @@ router.post('/signup', (req, res, next) => {
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
+
+
+//ruta para conseguir los datos de todos los usuarios
+
+router.get("/getAllUsers", (req, res) => {
+
+    User
+        .find()
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+// <<--------------------------------------------------->>
 
 router.post('/login', (req, res, next) => {
 

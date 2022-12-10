@@ -10,6 +10,5 @@
 |  /api/auth/signup                         |         POST           |          User signup           |
 |  /api/auth/login                          |         POST           |          User login            |
 |  /api/auth/verify                         |         GET            |          User verify           |
-
-
+|  /api/auth/getAllUsers                    |         GET            |      Get all users created     |
 
