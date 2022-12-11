@@ -23,7 +23,7 @@ module.exports = (app) => {
       res
         .status(500)
         .json({
-          message: "Internal server error. Check the server console",
+          message: "Error interno, vuelve a intentarlo",
         });
     }
 
