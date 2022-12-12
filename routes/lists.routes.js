@@ -88,12 +88,6 @@ router.delete("/deleteList/:list_id", (req, res) => {
 // })
 
 
-
-
-
-
-
-
 router.put("/deleteOneTask/:list_id/:task", (req, res) => {
 
 

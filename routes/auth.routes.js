@@ -62,4 +62,21 @@ router.get('/verify', isAuthenticated, (req, res) => {
 })
 
 
+// Eliminar usuarios
+
+router.delete("/deleteUser/:user_id", (req, res) => {
+
+    const { user_id } = req.params
+
+    User
+        .findByIdAndDelete(user_id)
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+
+})
+
+// --------------------------------------------------------
+
+
+
 module.exports = router
