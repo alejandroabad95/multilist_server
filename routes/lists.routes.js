@@ -11,6 +11,23 @@ router.get("/getAllLists", (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Coger listas del usuario
+
+
+router.get("/getUserLists", isAuthenticated, (req, res) => {
+    let idUser = req.payload._id
+
+    List
+        .find({ "owner": idUser })
+        // .find({ owner, _id })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+// ---------------------------------------------------
+
+
+
 router.get("/getOneList/:list_id", (req, res, next) => {
 
     const { list_id } = req.params
@@ -23,14 +40,14 @@ router.get("/getOneList/:list_id", (req, res, next) => {
 
 router.post("/createList", isAuthenticated, (req, res, next) => {
 
-    const { imageUrl, title, type, description, public, task1, task2, task3 } = req.body
+    const { imageUrl, title, type, description, isPublic, task1, task2, task3 } = req.body
 
     let tasks = [task1, task2, task3]
 
     let { _id: owner } = req.payload
 
     List
-        .create({ imageUrl, title, type, description, public, tasks, owner })
+        .create({ imageUrl, title, type, description, isPublic, tasks, owner })
         .then(response => res.json(response))
         .catch(err => next(err))
 })
@@ -39,12 +56,12 @@ router.put("/updateList/:list_id", (req, res) => {
 
     const { list_id } = req.params
 
-    const { imageUrl, title, type, description, public, task1, task2, task3 } = req.body
+    const { imageUrl, title, type, description, isPublic, task1, task2, task3 } = req.body
 
     let tasksUpdate = [task1, task2, task3]
 
     List
-        .findByIdAndUpdate(list_id, { imageUrl, title, type, description, public, tasksUpdate })
+        .findByIdAndUpdate(list_id, { imageUrl, title, type, description, isPublic, tasksUpdate })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -59,6 +76,23 @@ router.delete("/deleteList/:list_id", (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+// router.delete("/deleteList", (req, res) => {
+
+//     const { list_id } = req.body
+
+//     List
+//         .findByIdAndDelete(list_id)
+//         .then(response => res.json(response))
+//         .catch(err => res.status(500).json(err))
+// })
+
+
+
+
+
+
+
 
 router.put("/deleteOneTask/:list_id/:task", (req, res) => {
 

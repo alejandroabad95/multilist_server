@@ -22,7 +22,7 @@ const listSchema = new Schema(
             type: String,
         },
 
-        public: {
+        isPublic: {
             type: Boolean,
             default: false
         },
