@@ -4,12 +4,15 @@ const listSchema = new Schema(
     {
 
         imageUrl: {
-            type: String
+            type: String,
+            required: [true, 'La imagen es obligatoria'],
         },
 
         title: {
             type: String,
-            required: [true, 'Name is obligatory'],
+            required: [true, 'El nombre es obligatorio'],
+            minLength: [5, 'Mínimo 5 caracteres del título'],
+            maxLength: [42, 'Máximo 42 caracteres del título'],
             unique: true
         },
 
