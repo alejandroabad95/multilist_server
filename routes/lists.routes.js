@@ -15,6 +15,7 @@ router.get("/getAllLists", (req, res) => {
 
 
 router.get("/getUserLists", isAuthenticated, (req, res) => {
+
     let idUser = req.payload._id
 
     List
@@ -23,9 +24,6 @@ router.get("/getUserLists", isAuthenticated, (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
-
-// ---------------------------------------------------
-
 
 
 router.get("/getOneList/:list_id", (req, res, next) => {
@@ -76,6 +74,36 @@ router.delete("/deleteList/:list_id", (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+
+// Borrar listas de un usuario concreto
+
+router.delete("/deleteUserLists/:user_id", isAuthenticated, (req, res) => {
+
+    const { user_id } = req.params
+
+    List
+        .deleteMany({ "owner": user_id })
+        // .find({ owner, _id })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // router.delete("/deleteList", (req, res) => {
 

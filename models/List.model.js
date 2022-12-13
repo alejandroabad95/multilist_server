@@ -26,8 +26,8 @@ const listSchema = new Schema(
         },
 
         isPublic: {
-            type: Boolean,
-            default: false
+            type: Boolean
+
         },
 
         tasks: [String],
