@@ -54,12 +54,10 @@ router.put("/updateList/:list_id", (req, res) => {
 
     const { list_id } = req.params
 
-    const { imageUrl, title, type, description, isPublic, task1, task2, task3 } = req.body
-
-    let tasksUpdate = [task1, task2, task3]
+    const { imageUrl, title, type, description, isPublic, tasks } = req.body
 
     List
-        .findByIdAndUpdate(list_id, { imageUrl, title, type, description, isPublic, tasksUpdate })
+        .findByIdAndUpdate(list_id, { imageUrl, title, type, description, isPublic, tasks })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
