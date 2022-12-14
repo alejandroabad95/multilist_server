@@ -50,33 +50,35 @@ router.post("/createList", isAuthenticated, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.put("/updateList/:list_id", (req, res) => {
+router.put("/updateList/:list_id", (req, res, next) => {
 
     const { list_id } = req.params
 
     const { imageUrl, title, type, description, isPublic, tasks } = req.body
 
     List
-        .findByIdAndUpdate(list_id, { imageUrl, title, type, description, isPublic, tasks })
+        .findByIdAndUpdate(list_id, { imageUrl, title, type, description, isPublic, tasks }, { runValidators: true })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
 })
 
 
-router.delete("/deleteList/:list_id", (req, res) => {
+
+
+router.delete("/deleteList/:list_id", (req, res, next) => {
 
     const { list_id } = req.params
 
     List
         .findByIdAndDelete(list_id)
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
 })
 
 
 // Borrar listas de un usuario concreto
 
-router.delete("/deleteUserLists/:user_id", isAuthenticated, (req, res) => {
+router.delete("/deleteUserLists/:user_id", isAuthenticated, (req, res, next) => {
 
     const { user_id } = req.params
 
@@ -84,37 +86,14 @@ router.delete("/deleteUserLists/:user_id", isAuthenticated, (req, res) => {
         .deleteMany({ "owner": user_id })
         // .find({ owner, _id })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
 
 
 
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// router.delete("/deleteList", (req, res) => {
-
-//     const { list_id } = req.body
-
-//     List
-//         .findByIdAndDelete(list_id)
-//         .then(response => res.json(response))
-//         .catch(err => res.status(500).json(err))
-// })
-
-
-router.put("/deleteOneTask/:list_id/:task", (req, res) => {
+router.put("/deleteOneTask/:list_id/:task", (req, res, next) => {
 
 
     const { list_id, task } = req.params
@@ -125,7 +104,7 @@ router.put("/deleteOneTask/:list_id/:task", (req, res) => {
 
         .findByIdAndUpdate(list_id, { $pull: { tasks: task } }, { new: true })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
 
 })
 

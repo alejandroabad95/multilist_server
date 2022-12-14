@@ -23,6 +23,7 @@ const listSchema = new Schema(
 
         description: {
             type: String,
+            required: [true, 'La descripción es obligatoria'],
         },
 
         isPublic: {
