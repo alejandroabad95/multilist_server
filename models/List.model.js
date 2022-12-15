@@ -18,7 +18,8 @@ const listSchema = new Schema(
 
         type: {
             type: String,
-            enum: ['Daily', 'Health', 'Social', 'Hobbies', 'Work', 'Finance']
+            enum: ['Daily', 'Health', 'Social', 'Hobbies', 'Work', 'Finance'],
+            required: [true, 'Elige uno de los siguientes tipos: Daily, Health,Social, Hobbies, Work, Finance']
         },
 
         description: {
@@ -28,10 +29,12 @@ const listSchema = new Schema(
 
         isPublic: {
             type: Boolean
-
         },
 
-        tasks: [String],
+        tasks: {
+            type: [String],
+            validate: [values => !values.some(elm => elm === ''), 'Debes incluir tres tareas']
+        },
 
         owner: {
             type: Schema.Types.ObjectId,
